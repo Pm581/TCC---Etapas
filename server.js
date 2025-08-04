@@ -1,34 +1,26 @@
 const express = require('express');
-const app = express();
-const PORT = 3000;
-
-console.log('Iniciando o servidor...');
-
-let items = []; 
-
 const cors = require('cors');
-app.use(cors());
+const app = express();
+const port = 3000;
 
+app.use(cors()); // permite conexões de outros domínios
+app.use(express.json());
 
-app.use(express.json()); 
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
+let items = [];
 
 app.get('/items', (req, res) => {
   res.json(items);
 });
 
 app.post('/items', (req, res) => {
-  const novoItem = req.body;
-  items.push(novoItem);
-  res.json({ mensagem: 'Item adicionado com sucesso!' });
+  const { nome } = req.body;
+  if (!nome) {
+    return res.status(400).json({ mensagem: 'Nome é obrigatório' });
+  }
+  items.push({ nome });
+  res.json({ mensagem: 'Item adicionado com sucesso' });
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ Servidor rodando com sucesso!`);
-  console.log(`🌐 Acesse em: http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
