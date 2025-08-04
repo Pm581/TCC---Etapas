@@ -83,7 +83,7 @@
   <script>
     const apiUrl = 'http://localhost:3000/items';
 
-    // Função para carregar os itens da API
+   
     function carregarLista() {
       fetch(apiUrl)
         .then(response => response.json())
@@ -102,7 +102,7 @@
         });
     }
 
-    // Adiciona item ao backend
+
     document.getElementById('formulario').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -118,7 +118,7 @@
       .then(res => {
         document.getElementById('mensagem').textContent = res.mensagem || 'Item adicionado!';
         document.getElementById('nome').value = '';
-        carregarLista(); // Atualiza lista após adicionar
+        carregarLista(); 
       })
       .catch(error => {
         document.getElementById('mensagem').textContent = 'Erro ao adicionar item.';
@@ -126,7 +126,7 @@
       });
     });
 
-    // Quando clicar em "Ver Lista"
+
     document.getElementById('verLista').addEventListener('click', function() {
       carregarLista();
     });
